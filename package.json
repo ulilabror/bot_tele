@@ -1,0 +1,26 @@
+{
+  "name": "bot_tele",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "slimbot": "^4.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ulilabror/bot_tele.git"
+  },
+  "author": "mulil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ulilabror/bot_tele/issues"
+  },
+  "homepage": "https://github.com/ulilabror/bot_tele#readme"
+}
