@@ -12,19 +12,23 @@ const slimbot = new Slimbot('1098227527:AAHw7jcs1pfzf2tzZ-8PmiGBBSctzR2hxRI');
 setInterval(() => {
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
-  if (time == '12:40:00 am') {
+  if (time == '12:58:00 am') {
     (async (session) => {
       console.log('hello');
       res = await bot.login('0000000219', '123sekolahmaju', session);
-                 var send = '';
-                  if(res.error){
-                      send = `login gagal.\nresponse: ${res.message.toString()}`
-                  }else if(!res.error){
-                      send = `login sukses.\nresponse: ${res.toString()}`
-                  }else{
-                      send = 'err'
-                  }
+      var send = '';
+      if (res.error) {
+        send = `login gagal.\nresponse: ${res.message.toString()}`
+      } else if (!res.error) {
+        send = `login sukses.\nresponse: ${res.toString()}`
+      } else {
+        send = 'err'
+      }
       console.log(res);
+      res2 = await bot.absen('test')
+      console.log(session)
+      slimbot.sendMessage('1217727301', `respond: ${res2}`)
+
       slimbot.sendMessage('1217727301', send)
     })(session)
   }
@@ -32,11 +36,6 @@ setInterval(() => {
   console.log(time, day)
 }, 1000)
 
-// const ab = (async ()=>{
-//   var res = await bot.absen('test')
-//   console.log(res)
-//   slimbot.sendMessage('1217727301', `respond: ${res}`)
-// })()
 
 slimbot.on('message', message => {
   let { text } = message
@@ -47,39 +46,39 @@ slimbot.on('message', message => {
   const isCmd = text.startsWith(prefix)
   const uaOverride = process.env.UserAgent
   const url = args.length !== 0 ? args[0] : ''
-  if(text.startsWith(prefix)){
-    if(cmd=='login'){
+  if (text.startsWith(prefix)) {
+    if (cmd == 'login') {
       (async (session) => {
-              console.log('hello');
-              res = await bot.login('0000000219', '123sekolahmaju', session);
-                          send = '';
-                          if(res.error){
-                              send = `login gagal.\nresponse: ${res.message.toString()}`
-                          }else if(!res.error){
-                              send = `login sukses.\nresponse: ${res.toString()}`
-                          }else{
-                              send = 'err'
-                          }
-              console.log(send);
-              slimbot.sendMessage('1217727301', send)
-            })(session)
-    }else if(cmd=='getnotif'){
-      (async(session)=>{
-       res = await bot.notif(session)
-       var send = ''
-       res.map((v,i)=>{
-         send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
-       })
-       console.log(send)
-       slimbot.sendMessage(message.chat.id, send)
+        console.log('hello');
+        res = await bot.login('0000000219', '123sekolahmaju', session);
+        var send = '';
+        if (res.error) {
+          send = `login gagal.\nresponse: ${res.message.toString()}`
+        } else if (!res.error) {
+          send = `login sukses.\nresponse: ${res.toString()}`
+        } else {
+          send = 'err'
+        }
+        console.log(send);
+        slimbot.sendMessage('1217727301', send)
+      })(session)
+    } else if (cmd == 'getnotif') {
+      (async (session) => {
+        res = await bot.notif(session)
+        var send = ''
+        res.map((v, i) => {
+          send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
+        })
+        console.log(send)
+        slimbot.sendMessage(message.chat.id, send)
       })(session)
       console.log('notif')
     }
     // slimbot.sendMessage(message.chat.id, cmd)
-  }else{
-    slimbot.sendMessage(message.chat.id,'Menu tidak ada')
+  } else {
+    slimbot.sendMessage(message.chat.id, 'Menu tidak ada')
   }
-  
+
   //  console.log(message)
   //  {
   //   message_id: 1,
