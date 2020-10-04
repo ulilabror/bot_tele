@@ -7,8 +7,11 @@
     "lib": "lib"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "expres": "0.0.5",
     "express": "^4.17.1",
+    "moment-timezone": "^0.5.31",
+    "node-fetch": "^2.6.1",
     "slimbot": "^4.9.0"
   },
   "devDependencies": {},
