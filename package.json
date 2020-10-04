@@ -7,11 +7,15 @@
     "lib": "lib"
   },
   "dependencies": {
+    "expres": "0.0.5",
+    "express": "^4.17.1",
     "slimbot": "^4.9.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js",
+    "start": "node index.js",
+    "run": "node index.js"
   },
   "repository": {
     "type": "git",
