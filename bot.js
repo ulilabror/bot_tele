@@ -12,7 +12,7 @@ const slimbot = new Slimbot('1098227527:AAHw7jcs1pfzf2tzZ-8PmiGBBSctzR2hxRI');
 setInterval(() => {
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
-  if (time == '12:58:00 am') {
+  if (time == '7:00:00 am') {
     (async (session) => {
       console.log('hello');
       res = await bot.login('0000000219', '123sekolahmaju', session);
@@ -25,7 +25,7 @@ setInterval(() => {
         send = 'err'
       }
       console.log(res);
-      res2 = await bot.absen('test')
+      res2 = await bot.absen(session)
       console.log(session)
       slimbot.sendMessage('1217727301', `respond: ${res2}`)
 
