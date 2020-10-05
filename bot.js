@@ -68,6 +68,8 @@ slimbot.on('message', message => {
   const cmd = text.slice(1).trim().split(/ +/).shift().toLowerCase()
   const arg = text.trim().substring(text.indexOf(' ') + 1)
   const args = text.trim().split(/ +/).slice(1)
+  var getText = ''
+  const txt = args.map((v,i)=>{getText += `${v} `})
   const isCmd = text.startsWith(prefix)
   const uaOverride = process.env.UserAgent
   const url = args.length !== 0 ? args[0] : ''
@@ -116,7 +118,7 @@ slimbot.on('message', message => {
         console.log('[success] absen')
         slimbot.sendMessage(message.chat.id, send)
       })(session)
-    }else if(cmd='ask' && args[0]){
+    }else if(cmd=='ask' && args){
       (async(ask)=>{
         res = await bot.brainly(ask)
         var send = ''
@@ -128,8 +130,8 @@ slimbot.on('message', message => {
           send = res
         }
         slimbot.sendMessage(message.chat.id, send)
-      })(args[0])
-    } else if (cmd == 'menu') {
+      })(getText)
+    } else if(cmd == 'menu') {
       send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi\n#ask = untuk bertanya'
       slimbot.sendMessage(message.chat.id, send)
     } else {
