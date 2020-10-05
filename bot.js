@@ -33,9 +33,29 @@ setInterval(() => {
       slimbot.sendMessage('1217727301', send)
     })(session)
   }
+  // cek notif
+  (async (session) => {
+    login = await bot.login('0000000219', '123sekolahmaju', session)
+    res = await bot.ceknotif(session)
+    res1 = await bot.notif(session)
+    var send = ''
+    if (res != '0') {
+      if (isArray(res1)) {
+        res1.map((v, i) => {
+          send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
+        })
+      } else {
+        send = res1
+      }
+      console.log('[success] get notif')
+      slimbot.sendMessage('1217727301', send)
+    }
 
+    console.log
+  })(session)
   console.log(time, day)
-}, 1000)
+}, 3600000)
+// 3,600,000
 
 
 slimbot.on('message', message => {
@@ -67,35 +87,35 @@ slimbot.on('message', message => {
       (async (session) => {
         res = await bot.notif(session)
         var send = ''
-        if(isArray(res)){
+        if (isArray(res)) {
           res.map((v, i) => {
             send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
           })
-        }else{
-            send = res
+        } else {
+          send = res
         }
         console.log('[success] get notif')
         slimbot.sendMessage(message.chat.id, send)
       })(session)
       console.log('notif')
-    }else if(cmd=='absen'){
-      (async (session)=>{
+    } else if (cmd == 'absen') {
+      (async (session) => {
         var send = ''
         res = await bot.absen(session)
-        if(isArray(res)){
-          res.map((v,i)=>{
+        if (isArray(res)) {
+          res.map((v, i) => {
             send += `tanggal: ${v.tanggal}\nstatus: ${v.status}\nabsen: ${v.absen}\n\n\n`
           })
-        }else{
-            send = res
+        } else {
+          send = res
         }
         console.log('[success] absen')
         slimbot.sendMessage(message.chat.id, send)
       })(session)
-    }else if(cmd=='menu'){
+    } else if (cmd == 'menu') {
       send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi'
       slimbot.sendMessage(message.chat.id, send)
-    }else{
+    } else {
       send = 'Perintah tidak ada silahkan, ketik #menu untuk melihat menu'
       slimbot.sendMessage(message.chat.id, send)
     }
