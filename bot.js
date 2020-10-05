@@ -128,7 +128,7 @@ slimbot.on('message', message => {
           send = res
         }
         slimbot.sendMessage(message.chat.id, send)
-      })(ask)
+      })(args[0])
     } else if (cmd == 'menu') {
       send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi\n#ask = untuk bertanya'
       slimbot.sendMessage(message.chat.id, send)
