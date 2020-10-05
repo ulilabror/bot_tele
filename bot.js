@@ -11,6 +11,30 @@ const slimbot = new Slimbot('1098227527:AAHw7jcs1pfzf2tzZ-8PmiGBBSctzR2hxRI');
 
 //  Register listeners
 setInterval(() => {
+  
+  // cek notif
+  (async (session) => {
+    login = await bot.login('0000000219', '123sekolahmaju', session)
+    res = await bot.ceknotif(session)
+    res1 = await bot.notif(session)
+    var send = ''
+    if (res != '0') {
+      if (isArray(res1)) {
+        res1.map((v, i) => {
+          send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
+        })
+      } else {
+        send = res1
+      }
+      console.log('[success] get notif')
+      slimbot.sendMessage('1217727301', send)
+    }
+    
+  })(session)
+  slimbot.sendMessage('1217727301', 'success')
+}, 3600000)
+
+setInterval(()=>{
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
   if (time == '7:00:00 am') {
@@ -29,32 +53,12 @@ setInterval(() => {
       res2 = await bot.absen(session)
       console.log(session)
       slimbot.sendMessage('1217727301', `respond: ${res2}`)
-
+      
       slimbot.sendMessage('1217727301', send)
     })(session)
   }
-  // cek notif
-  (async (session) => {
-    login = await bot.login('0000000219', '123sekolahmaju', session)
-    res = await bot.ceknotif(session)
-    res1 = await bot.notif(session)
-    var send = ''
-    if (res != '0') {
-      if (isArray(res1)) {
-        res1.map((v, i) => {
-          send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
-        })
-      } else {
-        send = res1
-      }
-      console.log('[success] get notif')
-      slimbot.sendMessage('1217727301', send)
-    }
-
-    console.log
-  })(session)
   console.log(time, day)
-}, 3600000)
+},1000)
 // 3,600,000
 
 
@@ -112,8 +116,21 @@ slimbot.on('message', message => {
         console.log('[success] absen')
         slimbot.sendMessage(message.chat.id, send)
       })(session)
+    }else if(cmd='ask' && args[0]){
+      (async(ask)=>{
+        res = await bot.brainly(ask)
+        var send = ''
+        if(isArray(res)){
+          res.map((v,i)=>{
+            send += `soal : ${v.ask}\njawab : ${v.jawab}\n\n\n`
+          })
+        }else{
+          send = res
+        }
+        slimbot.sendMessage(message.chat.id, send)
+      })(ask)
     } else if (cmd == 'menu') {
-      send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi'
+      send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi\n#ask = untuk bertanya'
       slimbot.sendMessage(message.chat.id, send)
     } else {
       send = 'Perintah tidak ada silahkan, ketik #menu untuk melihat menu'
