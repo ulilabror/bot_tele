@@ -1,9 +1,10 @@
 const Slimbot = require('slimbot');
 var moment = require('moment-timezone');
 const bot = require('./lib/index.js');
-const { send } = require('process');
-const session = 'logged123456'
-
+const { isArray } = require('util');
+const uniqid = require('uniqid')
+const session = uniqid()
+console.log(session)
 // 1182878039:AAE2Px8NwUMqp4JUp3utJayXF5ht4Y5r2Z8 /bot e-learningman
 //              1098227527:AAHw7jcs1pfzf2tzZ-8PmiGBBSctzR2hxRI
 const slimbot = new Slimbot('1098227527:AAHw7jcs1pfzf2tzZ-8PmiGBBSctzR2hxRI');
@@ -24,7 +25,7 @@ setInterval(() => {
       } else {
         send = 'err'
       }
-      console.log(res);
+      // console.log(res);
       res2 = await bot.absen(session)
       console.log(session)
       slimbot.sendMessage('1217727301', `respond: ${res2}`)
@@ -48,9 +49,9 @@ slimbot.on('message', message => {
   const url = args.length !== 0 ? args[0] : ''
   if (text.startsWith(prefix)) {
     if (cmd == 'login') {
-      (async (session) => {
-        console.log('hello');
-        res = await bot.login('0000000219', '123sekolahmaju', session);
+      (async (sessi) => {
+        console.log(sessi);
+        res = await bot.login('0000000219', '123sekolahmaju', sessi);
         var send = '';
         if (res.error) {
           send = `login gagal.\nresponse: ${res.message.toString()}`
@@ -59,20 +60,44 @@ slimbot.on('message', message => {
         } else {
           send = 'err'
         }
-        console.log(send);
+        console.log('[success] get notif')
         slimbot.sendMessage('1217727301', send)
       })(session)
     } else if (cmd == 'getnotif') {
       (async (session) => {
         res = await bot.notif(session)
         var send = ''
-        res.map((v, i) => {
-          send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
-        })
-        console.log(send)
+        if(isArray(res)){
+          res.map((v, i) => {
+            send += `notif : ${v.text}\nWaktu : ${v.waktu}\n \n \n \n`
+          })
+        }else{
+            send = res
+        }
+        console.log('[success] get notif')
         slimbot.sendMessage(message.chat.id, send)
       })(session)
       console.log('notif')
+    }else if(cmd=='absen'){
+      (async (session)=>{
+        var send = ''
+        res = await bot.absen(session)
+        if(isArray(res)){
+          res.map((v,i)=>{
+            send += `tanggal: ${v.tanggal}\nstatus: ${v.status}\nabsen: ${v.absen}\n\n\n`
+          })
+        }else{
+            send = res
+        }
+        console.log('[success] absen')
+        slimbot.sendMessage(message.chat.id, send)
+      })(session)
+    }else if(cmd=='menu'){
+      send = 'Bot-tele\n\n#login= untuk login\n#getNotif= untuk mendapatkan notif\n#absen= untuk absen/melihat absensi'
+      slimbot.sendMessage(message.chat.id, send)
+    }else{
+      send = 'Perintah tidak ada silahkan, ketik #menu untuk melihat menu'
+      slimbot.sendMessage(message.chat.id, send)
     }
     // slimbot.sendMessage(message.chat.id, cmd)
   } else {

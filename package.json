@@ -12,7 +12,8 @@
     "express": "^4.17.1",
     "moment-timezone": "^0.5.31",
     "node-fetch": "^2.6.1",
-    "slimbot": "^4.9.0"
+    "slimbot": "^4.9.0",
+    "uniqid": "^5.2.0"
   },
   "devDependencies": {},
   "scripts": {
