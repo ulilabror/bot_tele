@@ -37,7 +37,7 @@ setInterval(() => {
 setInterval(()=>{
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
-  if (time == '4:00:00 pm') {
+  if (time == '4:15:00 pm') {
     (async (session) => {
       
       res = await bot.login('0000000219', '123sekolahmaju', session);
