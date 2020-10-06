@@ -37,7 +37,7 @@ setInterval(() => {
 setInterval(()=>{
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
-  if (time == '4:15:00 pm') {
+  if (time == '7:01:00 am') {
     (async (session) => {
       
       res = await bot.login('0000000219', '123sekolahmaju', session);
@@ -137,6 +137,7 @@ slimbot.on('message', message => {
         }else{
           send = res
         }
+        console.log(getText)
         slimbot.sendMessage(message.chat.id, send)
       })(getText)
     } else if(cmd == 'menu') {
