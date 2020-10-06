@@ -37,9 +37,9 @@ setInterval(() => {
 setInterval(()=>{
   var day = moment().tz("Asia/Jakarta").format('dddd')
   var time = moment().tz("Asia/Jakarta").format('h:mm:ss a')
-  if (time == '7:00:00 am') {
+  if (time == '4:00:00 pm') {
     (async (session) => {
-      console.log('hello');
+      
       res = await bot.login('0000000219', '123sekolahmaju', session);
       var send = '';
       if (res.error) {
@@ -51,8 +51,16 @@ setInterval(()=>{
       }
       // console.log(res);
       res2 = await bot.absen(session)
+      var send2 = ''
+      if (isArray(res2)) {
+        res2.map((v, i) => {
+          send2 += `tanggal: ${v.tanggal}\nstatus: ${v.status}\nabsen: ${v.absen}\n\n\n`
+        })
+      } else {
+        send2 = res2
+      }
       console.log(session)
-      slimbot.sendMessage('1217727301', `respond: ${res2}`)
+      slimbot.sendMessage('1217727301', `${send2}`)
       
       slimbot.sendMessage('1217727301', send)
     })(session)
