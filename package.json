@@ -9,7 +9,7 @@
   "dependencies": {
     "brainly-scraper": "^1.0.2",
     "cheerio": "^1.0.0-rc.3",
-    "expres": "0.0.5",
+    "netlify-lambda": "^1.6.0",
     "express": "^4.17.1",
     "moment-timezone": "^0.5.31",
     "node-fetch": "^2.6.1",
