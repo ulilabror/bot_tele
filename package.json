@@ -18,9 +18,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node index.js",
     "start": "node index.js",
-    "run": "node index.js"
+    "run": "node index.js",
+    "postinstall": "netlify-lambda install",
+    "buildNetlify": "netlify-lambda build functions",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devNetlify": "netlify-lambda serve functions"
   },
   "repository": {
     "type": "git",
